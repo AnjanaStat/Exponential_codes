@@ -1,0 +1,132 @@
+rm(list=ls())
+fun1<-function(n1,n2,n3,n4,mu1,mu2,mu3,mu4,v1,v2,v3,v4)
+{
+  g1=mu1+rexp(n1,rate=1/v1)
+  g2=mu2+rexp(n2,rate=1/v2)
+  g3=mu3+rexp(n3,rate=1/v3)
+  g4=mu4+rexp(n4,rate=1/v4)
+  y1=min(g1);y2=min(g2);y3=min(g3);y4=min(g4)
+  S1=sum(g1-y1)/(n1-1);S2=sum(g2-y2)/(n2-1);S3=sum(g3-y3)/(n3-1);S4=sum(g4-y4)/(n4-1)
+  W21=(y2-y1)/(S2/n2);W2=max(W21,0)
+  W31=(y3-y1)/(S3/n3);W32=(y3-y2)/(S3/n3)
+  W3=max(W31,W32,0)
+  W41=(y4-y1)/(S4/n4);W42=(y4-y2)/(S4/n4);W43=(y4-y3)/(S4/n4)
+  W4=max(W41,W42,W43,0)
+  q2=qf((1-0.05)^(1/3),2,2*n2-2);q3=qf((1-0.05)^(1/3),2,2*n3-2);q4=qf((1-0.05)^(1/3),2,2*n4-2)
+  a=0
+  if(W2>q2 || W3>q3||W4>q4)
+    a=a+1
+return(a)
+}
+fun4<-function(n1,n2,n3,n4,mu1,mu2,mu3,mu4,v1,v2,v3,v4)
+{
+  c<-replicate(10000,fun1(n1,n2,n3,n4,mu1,mu2,mu3,mu4,v1,v2,v3,v4))
+  p=mean(c)
+  return(p)
+}
+###Size values of Table 6.2
+
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=8,n2=10,n3=6,n4=8,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=10,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=20,n2=10,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=30,n2=25,n3=20,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=60,n4=80,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=50,n2=70,n3=10,n4=15,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
+
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1.5,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=1,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=1.5,v3=2,v4=1))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=2,v2=2.5,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=1,v3=2,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=1,v2=2,v3=1,v4=2))
+alpha<-mean(p);alpha
+p<-replicate(10,fun4(n1=25,n2=25,n3=25,n4=25,mu1=1,mu2=1,mu3=1,mu4=1,v1=0.5,v2=0.3,v3=0.8,v4=0.7))
+alpha<-mean(p);alpha
